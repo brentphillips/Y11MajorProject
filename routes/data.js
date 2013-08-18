@@ -1,21 +1,15 @@
-/**
- * Created with JetBrains WebStorm.
- * User: dave
- * Date: 26/05/13
- * Time: 5:01 PM
- * To change this template use File | Settings | File Templates.
- */
 
+ // Gets the mongodb server
 var mongo = require('mongodb');
 var fs = require('fs');
-
+// Creates the new mongo server
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-var db = new Db('BlogPosts', server);
-
+var db = new Db('BlogPosts', server);    //Creates new database
+//Opens that database
 db.open(function(err, db) {
     if (err) throw err;
     console.log("Connected to " + db.databaseName + " database");
@@ -23,20 +17,20 @@ db.open(function(err, db) {
 
 var emptydatabase = ""
 
-exports.clear = function(req, res){
+exports.clear = function(req, res){         //Clears any blogposts from the database
 
     db.collection('blogposts', function(err, collection) {
         if (err) throw err;
         collection.remove(function(err, result) {
             if (err) throw err;
-            res.redirect("/showBlog");
+            res.redirect("/showBlog");          //Redirects to the blog
         });
     });
 
 
 };
 
-exports.load = function(req, res){
+exports.load = function(req, res){     //Loads sample blog posts from a csv file
 
     var buf = [];
 
@@ -52,7 +46,7 @@ exports.load = function(req, res){
             var blogpostsObj = {};
             var blogpostsRec = [];
 
-            blogpostsRec = buf[i].split("|");
+            blogpostsRec = buf[i].split("|");    //Splits the csv file up and places the sample posts in to an array
 
             blogpostsObj.Title = blogpostsRec[0].replace("\r\n", "");
             blogpostsObj.Heading = blogpostsRec[1];
@@ -65,7 +59,7 @@ exports.load = function(req, res){
 
             db.collection('blogposts', function(err, collection) {
                 if (err) throw err;
-                collection.insert( blogpostsObj , {safe:true}, function(err, result) {
+                collection.insert( blogpostsObj , {safe:true}, function(err, result) {   //inserts that array into the database
                     if (err) throw err;
                 });
             });
@@ -74,13 +68,13 @@ exports.load = function(req, res){
 
 
 
-        res.redirect('/showBlog')
+        res.redirect('/showBlog')           //shows the blog
 
     } )
 
 };
 
-exports.list = function (req, res){
+exports.list = function (req, res){                          //Renders the table.jade file and passes through the blogposts as an array
 
     db.collection('blogposts', function(err, collection) {
         if (err) throw err;
@@ -99,13 +93,13 @@ exports.list = function (req, res){
 
 };
 
-exports.addForm = function (req, res){
+exports.addForm = function (req, res){      //Renders the addform to add blogs
 
     res.render('addForm', { title: 'Add Blog', tab: "add" });
 
 };
 
-exports.addRecord = function (req, res){
+exports.addRecord = function (req, res){                        //Recieves the addforms choices and inserts into mongodb
     db.collection('blogposts', function(err, collection) {
         if (err) throw err;
         console.log(req.body);
@@ -120,7 +114,7 @@ exports.addRecord = function (req, res){
 
 };
 
-exports.updateForm = function (req, res){
+exports.updateForm = function (req, res){                         //Renders the Update Form
 
     var obj_id = new BSON.ObjectID(req.params._id); // This converts the _id into a proper ObjectId for the .remove
 
@@ -137,13 +131,13 @@ exports.updateForm = function (req, res){
 exports.updateRecord = function (req, res){
 
     var obj_id = new BSON.ObjectID(req.params._id); // This converts the _id into a proper ObjectId for the .update
-
+    req.body.Date = new Date();
     db.collection('blogposts', function(err, collection) {
         if (err) throw err;
         console.log(req.body);
         collection.update( { _id: obj_id }, req.body , function(err, result) {
             if (err) throw err;
-            res.redirect('/list');
+            res.redirect('/showBlog');
         });
     });
 
@@ -166,28 +160,28 @@ exports.remove = function (req, res){
 };
 
 
-exports.searchForm = function (reg, res){
+exports.searchForm = function (reg, res){         //Loads the search form
     res.render('search', { title: 'Search The Blog', tab: "search" })
 }
 
 
 
-exports.sortForm = function (reg, res){
+exports.sortForm = function (reg, res){                 //Loads the sort form
     res.render('sort', { title: 'Sort The Blog', tab: "sort" })
 }
 
-exports.about = function (reg, res){
+exports.about = function (reg, res){                         //loads the about form
     res.render('about', { title: 'About The Blog', tab: "about" })
 }
 
 
-exports.doSearch = function (req, res) {
+exports.doSearch = function (req, res) {                       //Completes a binary search
 
     db.collection('blogposts', function(err, collection) {
         if (err) throw err;
         collection.find().toArray(function(err, allPosts) {
             if (err) throw err;
-            var searchCriteria = req.body.searchfield
+            var searchCriteria = req.body.searchfield           //Gets the users input
             if (allPosts.length != 0) {
                 doSortFunction(allPosts)
                 console.log(searchCriteria)
@@ -242,7 +236,7 @@ exports.doSearch = function (req, res) {
     });
 }
 
-exports.doSort = function (req, res) {
+exports.doSort = function (req, res) {                     //Completes the sort function
 
     db.collection('blogposts', function(err, collection) {
         if (err) throw err;
@@ -258,7 +252,7 @@ exports.doSort = function (req, res) {
     });
 }
 
-var doSortFunction = function (allPosts) {
+var doSortFunction = function (allPosts) {         //Does a bubble sort on an array of data
     var last = allPosts.length - 1
     var swapped = true
     while (swapped) {

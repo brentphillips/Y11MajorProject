@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+//This part of code recieves the http post and get functions and redirects to the data.js file
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/clear', data.clear);

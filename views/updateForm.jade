@@ -9,21 +9,26 @@ extends layout
 
 block content
 
-    div.span6.hero-unit
-        h4 Please upadte the details of a the person
-        //NOTE: The _id of the row is still included in the URL as .../update/:_id
+    div.span9.hero-unit
+        h4 Add a Blog Post:
         form(method="post")
+            .span2 Title:
+            input(type="text", name="Title", value="#{row.Title}", required).span7
+            .span2 Summary:
+            input(type="text", name="Heading", value="#{row.Heading}").span7
             .span2 Name:
-            input(type="text", name="Name", value="#{row.Name}", required)
-            .span2 Date:
-            input(type="text", name="Date", value="#{row.Date}")
+            input(type="text", name="Name" , value="#{row.Name}", required).span7
+            .span2 Image URL:
+            input(type="url", name="Image", value="#{row.Image}", required).span7
+            div.help-block.text-center http://www.something.com/image.jpg
             .span2 Post:
-            input(type="text", name="Post", value="#{row.Post}", required)
-            .span2 Unknown:
-            input(type="text", name="Unknown", value="#{row.Unknown}")
+            textarea(type="text", name="Posts", rows = 12).span7
+            .span2 Tags:
+            input(type="text", name="Tags", value="#{row.Tags}").span7
+
             div.row
                 div.span1
                 div.span2
-                    input.btn.btn-danger(type="reset", value='Reset')
-                div.span2
+                    input.btn.btn-danger(type="reset", value='Clear')
+                dive.span2
                     input.btn.btn-success(type="submit", value='Update')
