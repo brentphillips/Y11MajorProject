@@ -1,0 +1,40 @@
+//
+   Created with JetBrains WebStorm.
+   User: dave
+   Date: 5/06/13
+   Time: 4:51 PM
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+
+    div.span9.hero-unit
+        h4 Add a Blog Post:
+        form(method="post")
+            .span2 Title:
+            input(type="text", name="Title", required).span7
+            .span2 Summary:
+            input(type="text", name="Heading").span7
+            .span2 Name:
+            input(type="text", name="Name" , required).span7
+            //.span2 Date:
+            //input(type="date", name="Date").span7
+            .span2 Image URL:
+            input(type="url", name="Image", required).span7
+            div.help-block.text-center http://www.something.com/image.jpg
+            .span2 Post:
+            textarea(type="text", name="Posts", rows = 12).span7
+            .span2 Tags:
+            input(type="text", name="Tags").span7
+
+            div.row
+                div.span1
+                div.span2
+                    input.btn.btn-danger(type="reset", value='Clear')
+                dive.span2
+                    input.btn.btn-success(type="submit", value='Add')
+
+
+
+

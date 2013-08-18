@@ -1,0 +1,83 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/css/bootstrap.min.css')
+    include inc/header
+
+
+
+  body
+
+    div#topimage
+        img(src="/bootstrap/img/woodtexture.png")
+
+    h1.page-header.herohome= title
+
+
+
+    div#menu
+        ul.nav.nav-tabs.nav-stacked.span3
+          li#home: a(href='/') Home Page
+          li#list: a(href='/showBlog') Show Blog
+          li#add: a(href='/add') Add Blog Post
+          li#search: a(href='/search') Search Blogs
+          li#sort: a(href='/sort') Sort Blogs
+          li#about: a(href='/about') About Me
+
+    script.
+      $(document).ready(function() {
+          $(".active").removeClass("active");
+          $("##{tab}").addClass("active");
+      });
+
+
+
+    //div#commentsbar
+      table.table.table-bordered.table-striped.noborder
+
+            tr
+                td hello   //
+
+
+
+
+    div.span3
+    div.span9
+        block content
+
+
+    script.
+        window.onload = function() {
+
+            function getScrollTop() {
+            if (typeof window.pageYOffset !== 'undefined' ) {
+
+                return window.pageYOffset;
+            }
+
+            var d = document.documentElement;
+            if (d.clientHeight) {
+
+                return d.scrollTop;
+            }
+
+
+            return document.body.scrollTop;
+            }
+
+            window.onscroll = function() {
+                var box = document.getElementById('menu'),
+                    scroll = getScrollTop();
+
+                if (scroll <= 120) {
+                    box.style.top = "150px";
+                }
+                else {
+                    box.style.top = (scroll + 30) + "px";
+                }
+            }
+        };
+
+

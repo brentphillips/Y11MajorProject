@@ -1,0 +1,29 @@
+//
+   Created with JetBrains WebStorm.
+   User: dave
+   Date: 11/06/13
+   Time: 5:33 PM
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+
+    div.span6.hero-unit
+        h4 Please upadte the details of a the person
+        //NOTE: The _id of the row is still included in the URL as .../update/:_id
+        form(method="post")
+            .span2 Name:
+            input(type="text", name="Name", value="#{row.Name}", required)
+            .span2 Date:
+            input(type="text", name="Date", value="#{row.Date}")
+            .span2 Post:
+            input(type="text", name="Post", value="#{row.Post}", required)
+            .span2 Unknown:
+            input(type="text", name="Unknown", value="#{row.Unknown}")
+            div.row
+                div.span1
+                div.span2
+                    input.btn.btn-danger(type="reset", value='Reset')
+                div.span2
+                    input.btn.btn-success(type="submit", value='Update')

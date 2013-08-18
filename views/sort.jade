@@ -1,0 +1,19 @@
+//
+   Created with JetBrains WebStorm.
+   User: brentphillips
+   Date: 9/08/13
+   Time: 8:02 AM
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+
+    div.span9.hero-unit
+        h4 Sort The Blog:
+        form(method="post")
+            .span2 Sort By:
+            select(type="text", name="searchfield", required).span7
+                option Title: A-Z
+            div.span2
+                input.btn.btn-success(type="submit", value='Sort Blog Posts')

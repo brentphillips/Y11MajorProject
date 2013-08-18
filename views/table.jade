@@ -1,0 +1,57 @@
+//
+   Created with JetBrains WebStorm.
+   User: Brent
+   Date: 16/05/13
+   Time: 2:00 PM
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+
+    h1.black #{isemptyarr}
+    each row in blogposts
+        div.span9
+            table.table.table-bordered.table-striped.noborder
+
+
+                    tr
+                        td
+                            div.blogtitle #{row.Title}
+                            br
+                            div.blogheading #{row.Heading}
+                            br
+                            div.namedate
+                                b by #{row.Name} on #{row.Date.toDateString()} at #{row.Date.toLocaleTimeString()}
+                            br
+                            div.imagetable
+                                img(src=row.Image)
+                            br
+                            div.blogposts #{row.Posts}
+                            br
+                            div.blogtags Tags: #{row.Tags}
+                            br
+                            a(href="/update/#{row._id}")
+                                i.icon-pencil
+                            a(href="/remove/#{row._id}")
+                                i.icon-trash
+
+
+    a(href='/clear').btn.btn-warning.rightside Clear All Blogs
+    a(href='/load').btn.btn-success.rightside.topbtn Load Sample Blogs
+
+
+
+//
+                    td #{row.Name}
+                    td
+                        div.span4 #{row.Post}
+                    td #{row.Unknown}
+                    td
+                        a(href="/update/#{row._id}")
+                            i.icon-pencil
+                        a(href="/remove/#{row._id}")
+                            i.icon-trash
+
+
+

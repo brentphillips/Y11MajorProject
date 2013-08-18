@@ -1,0 +1,37 @@
+//
+   Created with JetBrains WebStorm.
+   User: dave
+   Date: 5/06/13
+   Time: 6:09 PM
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+
+    div.span12
+        h3.white Record has been added
+
+        table.table.table-bordered.table-striped.noborder
+                tr
+                    td
+                        div.blogtitle #{row.Title}
+                        br
+                        div.blogheading #{row.Heading}
+                        br
+                        div.namedate
+                            b by #{row.Name} on #{row.Date}
+                        br
+                        div.imagetable
+                            img(src=row.Image)
+                        br
+                        div.blogposts #{row.Posts}
+                        br
+                        div.blogtags Tags: #{row.Tags}
+                        br
+                        a(href="/update/#{row._id}")
+                            i.icon-pencil
+                        a(href="/remove/#{row._id}")
+                            i.icon-trash
+
+

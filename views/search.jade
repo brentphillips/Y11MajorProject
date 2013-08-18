@@ -1,0 +1,18 @@
+//
+   Created with JetBrains WebStorm.
+   User: brentphillips
+   Date: 8/08/13
+   Time: 6:53 PM
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+
+    div.span9.hero-unit
+        h4 Search For A Blog:
+        form(method="post")
+            .span2 Search:
+            input(type="text", name="searchfield", required).span7
+            div.span2
+                input.btn.btn-success(type="submit", value='Search Blogs')
